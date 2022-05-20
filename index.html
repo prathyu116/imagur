@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+<style>
+  #container {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  #sidebar {
+    border: 1px solid rgb(32, 30, 30);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 120px;
+
+  }
+
+  #main {
+    flex: 8;
+    border: 1px solid red;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+
+  }
+</style>
+
+<body>
+  <div id="container">
+    <div id="sidebar">
+      <!--DO NOT CHANGE THIS ID's-->
+      <!--Append the horizontal navbar(sidebar) here only-->
+    </div>
+
+    <div id="main">
+      <!--DO NOT CHANGE THIS ID's-->
+      <!--Append top images here only-->
+    </div>
+  </div>
+</body>
+
+</html>
+
+<script type="module">
+  //1.
+  //import navbar
+  import sideBar from "./components/sidebar.js"
+  import { makeApiCall, appendPic } from "./scripts/main.js"
+  let sidebar_div = document.getElementById("sidebar")
+  sidebar_div.innerHTML = sideBar()
+  var images_data = await makeApiCall("https://api.unsplash.com/photos/?client_id=jk9q_Dy1S5pAscfdFT6z060Rx2Gm6lekxrdk-ET5ZEE")
+  var parent = document.getElementById("main")
+  appendPic(images_data, parent)
+  var inputbox = document.getElementById("searchbar")
+  inputbox.addEventListener("keypress", (e) => {
+    if (e.key == "Enter") {
+      var input_value = document.getElementById("searchbar").value
+      localStorage.setItem("searchItem", input_value)
+      window.location.href = 'search.html'
+    }
+
+  })
+</script>
